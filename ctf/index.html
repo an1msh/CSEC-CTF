@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CTF Login and Signup</title>
+</head>
+<body>
+  <h1>Welcome to the CTF App</h1>
+  
+  <h2>Login</h2>
+  <form id="login-form" action="login.php" method="post" onsubmit="submitForm(event)">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required><br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required><br>
+    <input type="submit" value="Login">
+  </form>
+
+  <h2>Signup</h2>
+  <form id="signup-form" action="signup.php" method="post" onsubmit="submitForm(event)">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required><br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required><br>
+    <input type="submit" value="Sign Up">
+  </form>
+
+  <script>
+    async function submitForm(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const response = await fetch(event.target.action, {
+        method: "POST",
+        body: formData,
+      });
+      const jsonResponse = await response.json();
+
+      if (jsonResponse.status === "success") {
+        location.href = "dashboard.php";
+      } else {
+        alert(jsonResponse.status);
+      }
+    }
+  </script>
+</body>
+</html>
+
